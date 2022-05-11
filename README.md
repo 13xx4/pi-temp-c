@@ -1,5 +1,6 @@
 # pi-temp-c
 ## Temperature monitor for RaspBerry Pi.
+Created for C and GitHub learning.
 
 ### Usage:<br>
 `./pi-temp [options]`<br>
