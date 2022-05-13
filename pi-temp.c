@@ -21,12 +21,12 @@ Options:
  -d	[NUM]	delay in second between measures, this option should be
 			used separetely, default is 3.
  -t			print timestamp before temperature
- -l			write results in file, default file ./pi-temp.log
 
 Examples:
- pi-temp -f -t -l -d 3 
+ pi-temp-c -f -t -d 3 
 */
 void print_temp_cmd(void);
+void print_temp_file(void);
 
 int main(int argc, char **argv) {
     short sleepsec = 3;
@@ -34,8 +34,6 @@ int main(int argc, char **argv) {
     short run_type = 1;
     /* ts_bool, timestamp, 1 for -t flag, 0 for none */
     short ts_bool = 0;
-    /* log_bool, log write, 1 for -l flag, 0 for none */
-    short log_bool = 0;
     short i = 0;
     
     /* checking arguments */
@@ -47,8 +45,6 @@ int main(int argc, char **argv) {
 				run_type = 0;
 			else if (strcmp(argv[i], "-t") == 0)
 				ts_bool = 1;
- 			else if (strcmp(argv[i], "-l") == 0)
-				log_bool = 1;
 			else if (strcmp(argv[i], "-d") == 0) {
 				i++; 
 				sleepsec = atoi(argv[i]);
@@ -64,21 +60,27 @@ printing out arguments
 		printf("flag -c was used\n");
 	else
 		printf("flag -f was used\n");
-	
+
 	if (ts_bool)
 		printf("flag -t was used\n");
-	if (log_bool)
-		printf("flag -l was used\n");
+
 	printf("delay = %d seconds\n", sleepsec);
 	
 	printf("\nprinting arguments:\n");
 	for (i = 1; i < argc; i++)
 		printf("argument %d = %s\n", i, argv[i]);
-/*
-END o DEBUG */
-					
-				
-    
+
+	if (run_type)
+		while (1 > 0) {
+			print_temp_cmd();
+			sleep(sleepsec);
+		}
+	else
+		while (1 > 0) {
+			print_temp_file();
+			sleep(sleepsec);
+		}
+		
 /*
 clean screen
     printf("\e[1;1H\e[2J");
@@ -92,7 +94,7 @@ clean screen
 void print_temp_cmd(void) {
 	char *cmd = "/usr/bin/vcgencmd measure_temp";
     char buf[BUFSIZE];
-    FILE *fp;
+    FILE *fp = NULL;
 	
 	/* opening pipe and if everything is OK - printing temp */
 	if ((fp = popen(cmd, "r")) != NULL) 
@@ -100,7 +102,7 @@ void print_temp_cmd(void) {
 			printf("%s", buf);
 		else {
 			printf("Error getting result from command\n");
-			exit(1);
+			exit(86);
 		}
     else {
 		printf("Error opening pipe!\n");
@@ -108,6 +110,31 @@ void print_temp_cmd(void) {
     }
     if (pclose(fp)) {
 		printf("Error closing pipe\n");
+		exit(1);
+	}
+}
+
+void print_temp_file(void) {
+	char *path = "/sys/class/thermal/thermal_zone0/temp";
+    char buf[BUFSIZE];
+    FILE *fp = NULL;
+    float ftemp = 0.0;
+    if ((fp = fopen(path, "r")) != NULL) 
+        if (fgets(buf, BUFSIZE, fp) != NULL) {
+			ftemp = atof(buf);
+			ftemp = ftemp / 1000.0;
+			printf("temp=%.2f'C\n", ftemp);
+		}
+		else {
+			printf("Error getting result from file\n");
+			exit(5);
+		}
+    else {
+		printf("Error opening file.\n");
+        exit(2);
+    }
+    if (pclose(fp)) {
+		printf("Error closing file.\n");
 		exit(1);
 	}
 }
