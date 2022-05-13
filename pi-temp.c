@@ -2,6 +2,7 @@
 #include <unistd.h>
 #include <string.h>
 #include <stdlib.h>
+#include <time.h>
 
 /*
 BUFSIZE is for vcgencmd measure_temp command output
@@ -25,8 +26,10 @@ Options:
 Examples:
  pi-temp-c -f -t -d 3 
 */
+
 void print_temp_cmd(void);
 void print_temp_file(void);
+void print_timestamp(void);
 
 int main(int argc, char **argv) {
     short sleepsec = 3;
@@ -35,7 +38,7 @@ int main(int argc, char **argv) {
     /* ts_bool, timestamp, 1 for -t flag, 0 for none */
     short ts_bool = 0;
     short i = 0;
-    
+
     /* checking arguments */
     if (argc > 1) {
 		for (i = 1; i < argc; i++) {
@@ -52,31 +55,18 @@ int main(int argc, char **argv) {
 		}
 	}
 	
-/*
-DEBUG
-printing out arguments
-*/
-	if (run_type)
-		printf("flag -c was used\n");
-	else
-		printf("flag -f was used\n");
-
-	if (ts_bool)
-		printf("flag -t was used\n");
-
-	printf("delay = %d seconds\n", sleepsec);
-	
-	printf("\nprinting arguments:\n");
-	for (i = 1; i < argc; i++)
-		printf("argument %d = %s\n", i, argv[i]);
-
+/* main routine */
 	if (run_type)
 		while (1 > 0) {
+			if (ts_bool)
+				print_timestamp();
 			print_temp_cmd();
 			sleep(sleepsec);
 		}
 	else
 		while (1 > 0) {
+			if (ts_bool)
+				print_timestamp();
 			print_temp_file();
 			sleep(sleepsec);
 		}
@@ -85,8 +75,6 @@ printing out arguments
 clean screen
     printf("\e[1;1H\e[2J");
 */
-
-
     
     return 0;
 }
@@ -123,7 +111,7 @@ void print_temp_file(void) {
         if (fgets(buf, BUFSIZE, fp) != NULL) {
 			ftemp = atof(buf);
 			ftemp = ftemp / 1000.0;
-			printf("temp=%.2f'C\n", ftemp);
+			printf("temp=%.1f'C\n", ftemp);
 		}
 		else {
 			printf("Error getting result from file\n");
@@ -137,4 +125,15 @@ void print_temp_file(void) {
 		printf("Error closing file.\n");
 		exit(1);
 	}
+}
+
+void print_timestamp(void){
+	char timebuf[21];
+    time_t now;
+    struct tm* tm_info;
+    
+	now = time(NULL);
+	tm_info = localtime(&now);
+	strftime(timebuf, 21, "%Y.%m.%d %H:%M:%S ", tm_info);
+	printf("%s", timebuf);
 }
