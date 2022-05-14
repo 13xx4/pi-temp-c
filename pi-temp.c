@@ -10,23 +10,6 @@ it should not be more then 16 chars.
 */
 #define BUFSIZE 16
 
-/*
-Usage:
- pi-temp [options]
-
-Monitor CPU temperature.
-
-Options:
- -c			run using "vcgencmd measure_temp" command, this is default
- -f			run reading file /sys/class/thermal/thermal_zone0/temp
- -d	[NUM]	delay in second between measures, this option should be
-			used separetely, default is 3.
- -t			print timestamp before temperature
-
-Examples:
- pi-temp-c -f -t -d 3 
-*/
-
 void print_temp_cmd(void);
 void print_temp_file(void);
 void print_timestamp(void);
@@ -90,11 +73,6 @@ int main(int argc, char **argv) {
 			if (cls_bool)
 			    printf("\e[1;1H\e[2J");
 		}
-		
-/*
-clean screen
-    printf("\e[1;1H\e[2J");
-*/
     
     return 0;
 }
