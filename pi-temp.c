@@ -63,6 +63,11 @@ int main(int argc, char **argv) {
 				print_help();
 				exit(0);
 			}
+			else {
+				printf("Error: wrong argument\n");
+				print_help();
+				exit(1);
+			}
 		}
 	}
 	
@@ -160,13 +165,16 @@ Monitor CPU temperature.\n\
 \n\
 Options:\n\
   -c\t\trun using \"vcgencmd measure_temp\" command, this is default\n\
-  -f\t\trun reading file /sys/class/thermal/thermal_zone0/temp\n\
+  -f\t\trun reading file /sys/class/thermal/thermal_zone0/temp.\n\
+\t\tThis mode is lower on RES and should work on most Debian/Ubuntu.\n\
   -d [NUM]\tdelay in second between measures, this option should be\n\
 \t\tused separetely, default is 2.\n\
-  -t\t\tprint timestamp before temperature\n\
+  -t\t\tprint timestamp before temperature.\n\
   -r\t\tuse monitor mode instead of history mode.\n\
-  -h, --help\tshow this help\n\
+  -h, --help\tshow this help.\n\
 \n\
 Examples:\n\
-  pi-temp -f -t -d 3\n");
+  pi-temp -f -t -d 3\n\
+\n\
+Author: Aleksejs Abrosimovs\n");
 }
