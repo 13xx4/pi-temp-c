@@ -37,6 +37,10 @@ https://www.pragmaticlinux.com/2020/06/check-the-raspberry-pi-cpu-temperature/<b
 and good exapmles by Vivek Gite:<br>
 https://www.cyberciti.biz/faq/linux-find-out-raspberry-pi-gpu-and-arm-cpu-temperature-command/<br></p>
 
-<p>P.S.<br>
+<p>P.P.S.<br>
 And, of course, a lot of thanks to all perosns, who created related programm/atricles/etc. And can't remember all places where I found help, inspiration and examples. So, thank you, community!<br></p>
 
+<p>P.P.P.S.<br>
+ If you find this program useful and want to thank me - you can send me 1 USD/EUR, no more, I just want to see if I can get something. :)
+ PayPal: aleksejs.abrosimovs@gmail.com
+ Also you can ask/write me regarding this program.
