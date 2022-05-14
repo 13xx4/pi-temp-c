@@ -24,7 +24,8 @@ Option A:
 
 Option B:
 1) Just download executable/release
-2) Run it: `./pi-temp -h`
+2) Cmod the file: `chmod +x pi-temp-arm` or `chmod +x pi-temp-amd64`
+3) Run it: `./pi-temp-arm -h` or `./pi-temp-amd64`
 
 <br>
 <p>P.S.<br>
