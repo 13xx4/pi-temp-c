@@ -51,8 +51,10 @@ int main(int argc, char **argv) {
 				run_type = 0;
 			else if (strcmp(argv[i], "-t") == 0)
 				ts_bool = 1;
-			else if (strcmp(argv[i], "-r") == 0)
+			else if (strcmp(argv[i], "-r") == 0) {
 				cls_bool = 1;
+			    printf("\e[1;1H\e[2J");
+			}
 			else if (strcmp(argv[i], "-d") == 0) {
 				i++; 
 				sleepsec = atoi(argv[i]);
