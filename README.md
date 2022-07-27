@@ -6,8 +6,8 @@ Created for C and GitHub learning.
 `./[program name] [options]`<br>
 
 ### Options:<br>
-`-c`       : use "vcgencmd measure_temp" command, this is defualt.<br>
-`-f`       : read file /sys/class/thermal/thermal_zone0/temp. This mode is lower on RES and should work on most Debian/Ubuntu.<br>
+`-c`       : use "vcgencmd measure_temp" command.<br>
+`-f`       : read file /sys/class/thermal/thermal_zone0/temp. This mode default, is lower on RES and should work on most Debian/Ubuntu.<br>
 `-d [NUM]` : delay in second between measures, this option should be used separetely, must be integer, default is 2.<br>
 `-t`       : print timestamp before temperature.<br>
 `-r`	      :	use monitor mode instead of history mode.<br>
