@@ -16,12 +16,14 @@ void print_timestamp(void);
 void print_help(void);
 
 int main(int argc, char **argv) {
+    /* defaults */
+    /* delay between measurements */
     short sleepsec = 2;
-    /* run-type, 1 for -c flag, 0 for -f flag */
-    short run_type = 1;
-    /* ts_bool, timestamp, 1 for -t flag, 0 for none */
+    /* 1 - use vcgencmd, 0 - read temperature file */
+    short run_type = 0;
+    /* print timestamp, 1 - yes, 0 - no */
     short ts_bool = 0;
-    /* cls_bool, 1 for -r flag */
+    /* 1 - clear screen between measurements, 0 - listed output */
     short cls_bool = 0;
     short i = 0;
 
@@ -142,13 +144,13 @@ Usage: ./[program name] [options]\n\
 Monitor CPU temperature.\n\
 \n\
 Options:\n\
-  -c\t\trun using \"vcgencmd measure_temp\" command, this is default\n\
+  -c\t\trun using \"vcgencmd measure_temp\" command.\n\
   -f\t\trun reading file /sys/class/thermal/thermal_zone0/temp.\n\
-\t\tThis mode is lower on RES and should work on most Debian/Ubuntu.\n\
+\t\tThis mode is default, is lower on RES and should work on most Debian/Ubuntu.\n\
   -d [NUM]\tdelay in second between measures, this option should be\n\
 \t\tused separetely, default is 2.\n\
   -t\t\tprint timestamp before temperature.\n\
-  -r\t\tuse monitor mode instead of history mode.\n\
+  -r\t\tuse monitor mode instead of history/list mode.\n\
   -h, --help\tshow this help.\n\
 \n\
 Examples:\n\
