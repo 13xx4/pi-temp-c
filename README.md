@@ -1,6 +1,8 @@
 # pi-temp-c
 ## Temperature monitor for RaspBerry Pi.
-Created for C and GitHub learning.
+Created for C and Git learning.
+UPD. Project moved to codeberg: 
+https://codeberg.org/13x4/pi-temp-c
 
 ### Usage:<br>
 `./[program name] [options]`<br>
